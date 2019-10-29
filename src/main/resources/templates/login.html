@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎登陆在线图书馆！</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<div style="margin:0 auto;width: 500px">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名或ID" autocomplete="off" class="layui-input" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><a href="" style="color: gray">忘记密码</a> </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">保持登陆</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="switch" lay-skin="switch">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo"  formaction="/login" formmethod="post">登陆</button>
+                <button  type="button" class="layui-btn layui-btn-primary"  ><a href="/register">注册</a></button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div th:if="${result != null}" th:text="'result:'+${result}" } ></div>
+        </div>
+    </form>
+</div>
+
+
+<script src="/layui/layui.all.js"></script>
+
+
+</body>
+</html>

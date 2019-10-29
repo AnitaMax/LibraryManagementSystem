@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.all.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        function logout() {
+            $.ajax({
+                url:"/logout",
+                success:function (data) {
+                    alert(data)
+                    window.location.href="/login"
+                },
+                error:function () {
+                    alert("出现了错误，请稍后重试")
+                }
+
+            })
+        }
+    </script>
+</head>
+<body>
+
+    <h1 th:text="'用户名:'+${user.username}"></h1>
+    <h1 th:text="'id:'+${user.userid}"></h1>
+    <button class="layui-btn"  onclick="logout()">注销</button>
+
+
+</body>
+</html>
