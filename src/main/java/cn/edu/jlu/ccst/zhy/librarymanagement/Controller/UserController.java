@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -20,18 +21,24 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/login")
-    public  String login(User user, Model model, HttpSession session, HttpServletResponse response) throws IOException {
+    public  String login(User user, Model model, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        String result= request.getParameter("result");
+        if(result!=null){
+            switch (result){
+                case "nologin":model.addAttribute("result","尚未登陆!");break;
+            }
+        }
         User loginedUser=(User) session.getAttribute("user");
         if(loginedUser!=null){
             model.addAttribute("result","您已登陆，正在跳转个人中心...");
-            response.sendRedirect("/personalcenter");
+            response.sendRedirect("/personal/personalcenter");
             return "login";
         }
         if(user.getUsername()!= null){
             loginedUser=userService.login(user);
             if(loginedUser!=null){
                 session.setAttribute("user",user);
-                return "redirect:/personalcenter";
+                return "redirect:/personal/personalcenter";
             }
             else {
                 model.addAttribute("result","用户名或密码错误");

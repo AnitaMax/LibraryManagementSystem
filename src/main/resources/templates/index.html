@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线图书馆</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <style>
+        .search_box{
+            width: 600px;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="tem/navbar::navbar(${state})" ></div>
+    <div class="search_box">
+        <form  class="layui-form">
+            <div class="layui-input-inline" style="width: 80%">
+                <input type="text" name="content" required lay-verify="required" placeholder="请输入书名或作者" autocomplete="off" class="layui-input">
+            </div>
+            <button type="submit" class="layui-btn" formmethod="get" formaction="/search">点击搜索！</button>
+        </form>
+    </div>
+
+
+
+    <script src="/layui/layui.all.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <title>个人中心</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.all.js"></script>
-    <script src="jquery-3.4.1.min.js"></script>
+    <script src="/jquery-3.4.1.min.js"></script>
     <script>
         function logout() {
             $.ajax({
@@ -22,13 +22,25 @@
             })
         }
     </script>
+    <style>
+        #userbox{
+            width: 500px;
+            margin: 0 auto;
+            border: #2E2D3C;
+            border-width: 3px;
+        }
+    </style>
 </head>
 <body>
+    <div th:replace="tem/navbar::navbar('login')"></div>
+    <div id="userbox">
+        <h1 align="center">用户信息</h1>
+        <h2 align="center" th:text="'用户名:'+${user.username}"></h2>
+        <h2 align="center" th:text="'id:    '+${user.userid}"></h2>
+        <button class="layui-btn"  onclick="logout()">注销</button>
+    </div>
 
-    <h1 th:text="'用户名:'+${user.username}"></h1>
-    <h1 th:text="'id:'+${user.userid}"></h1>
-    <button class="layui-btn"  onclick="logout()">注销</button>
-
-
+    <script src="/layui/layui.all.js"></script>
 </body>
+
 </html>

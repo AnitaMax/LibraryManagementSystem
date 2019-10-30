@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <title>欢迎登陆在线图书馆！</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <style>
+        #loginbox{
+            margin:0 auto;
+        }
+    </style>
 </head>
 <body>
-<div style="margin:0 auto;width: 500px">
+<div th:replace="tem/navbar::navbar('nologin')" ></div>
+<div style="width: 500px" id="loginbox">
+    <h2 style="color: #576173;margin-bottom: 50px;margin-top: 40px" align="center">欢迎登陆在线图书馆</h2>
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
-            <div class="layui-input-inline">
-                <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名或ID" autocomplete="off" class="layui-input" >
+            <div class="layui-input-block">
+                <input type="text" name="username"  required  lay-verify="required" placeholder="请输入用户名或ID" autocomplete="off" class="layui-input" >
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码框</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 300px">
                 <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><a href="" style="color: gray">忘记密码</a> </div>
@@ -29,7 +36,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo"  formaction="/login" formmethod="post">登陆</button>
+                <button class="layui-btn" lay-submit   formaction="/login" formmethod="post">登陆</button>
                 <button  type="button" class="layui-btn layui-btn-primary"  ><a href="/register">注册</a></button>
             </div>
         </div>

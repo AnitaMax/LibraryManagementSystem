@@ -15,19 +15,11 @@ public class PersonalCenterController {
     @Autowired
     PersonalCenterService personalCenterService;
 
-    @RequestMapping("/personalcenter")
-    public ModelAndView personalCenter( HttpSession session){
-        ModelAndView modelAndView=new ModelAndView();
-        User loginedUser= (User) session.getAttribute("user");
-        if (loginedUser!=null){
-            modelAndView.setViewName("personalcenter");
-            modelAndView.addObject("user",loginedUser);
-            return modelAndView;
-        }else {
-            //modelAndView.addObject("result","您需要先登录"); 会变成
-            modelAndView.setViewName("redirect:/login");
-            return modelAndView;
-        }
+    @RequestMapping("/personal/personalcenter")
+    public String  personalCenter(Model model, HttpSession session){
+        User user= (User) session.getAttribute("user");
+        model.addAttribute("user",user);
+        return "personal/personalcenter";
 
     }
 }
