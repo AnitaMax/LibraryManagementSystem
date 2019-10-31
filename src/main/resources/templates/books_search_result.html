@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线图书馆</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body >
+<div background="#dddddd">
+    <div th:replace="tem/navbar::navbar(${state})" ></div>
+    <div style="float: left">
+        <ul class="layui-nav layui-nav-tree " lay-filter="test"  >
+            <li class="layui-nav-item "  >
+                <a href="javascript:;" style="color: #FFB800">筛选</a>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">类别</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">计算机</a></dd>
+                    <dd><a href="javascript:;">医学</a></dd>
+                    <dd><a href="">跳转</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item " >
+                <a href="javascript:;">作者</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">出版社</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">机械工业出版社</a></dd>
+                    <dd><a href="">高等教育出版社</a></dd>
+                    <dd><a href="">清华出版社</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">出版时间</a></li>
+        </ul>
+    </div>
+
+    <div th:if="${#lists.size(books) != 0} "  class="layui-col-md8" style="float: left;">
+        <div class="layui-col-md-offset1" th:each="book:${books}" >
+            <div class="layui-card layui-col-md11" style="background-color: #E9E7E7;margin-top: 50px">
+                <div class="layui-card-header" th:text="${book.name}">书名</div>
+                <div class="layui-card-body">
+                    <div th:text="'作者：'+${book.author==null?'暂无':book.author}+' | '
+                                 +'出版社：'+${book.publisher==null?'暂无':book.publisher} +' | '
+                                 +'ISBN: '+${book.isbn==null?'暂无':book.isbn}">
+                    </div>
+                    <div th:text="'位置：'+${book.location==null?'暂无':book.location}+' | '
+                                 +'数量：'+${book.num} ">
+                    </div>
+                    <div th:text="'描述：'+${book.describe==null?'暂无':book.describe}">
+                    </div>
+                    <div class="layui-col-md-offset8">
+                        <button onclick="" type="button" class="layui-btn ">详细信息</button>
+                        <span th:if="${book.num==0}">
+                            <button onclick="" type="button" class="layui-btn-disabled " style="color:#000;background: #E9E7E7">已借出</button>
+                        </span>
+                        <span th:if="${book.num>0}">
+                            <button th:onclick="borrow([[${book.bookid}]])" type="button" class="layui-btn" >借阅</button>
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <div th:if="${#lists.size(books) == 0}">
+        <div class="layui-card  layui-col-md-offset2 layui-col-md8" style="background-color: #E9E7E7;float: left;margin:50px 100px">
+            <div class="layui-card-header">
+                抱歉，查询结果为空！
+            </div>
+            <div class="layui-card-body">
+                请检查搜索条件或者放宽搜索条件.
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    function borrow(bookid){
+        $.ajax({
+            url: "/borrow?bookid=" + bookid,
+            success:function(data){
+                layer.msg(data);
+            },
+            error:function () {
+                layer.msg("出现了错误，请稍后重试")
+                window.location.reload()
+            }
+
+
+        })
+    }
+</script>
+<script src="/layui/layui.all.js"></script>
+<script src="/jquery-3.4.1.min.js"></script>
+
+</body>
+</html>

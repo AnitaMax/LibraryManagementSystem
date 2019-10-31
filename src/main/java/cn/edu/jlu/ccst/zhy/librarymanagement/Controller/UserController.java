@@ -37,7 +37,7 @@ public class UserController {
         if(user.getUsername()!= null){
             loginedUser=userService.login(user);
             if(loginedUser!=null){
-                session.setAttribute("user",user);
+                session.setAttribute("user",loginedUser);
                 return "redirect:/personal/personalcenter";
             }
             else {

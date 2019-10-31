@@ -11,5 +11,6 @@ public interface UserDao {
     @Select("select * from users where username=#{username} and password=#{password}")
     User UserLoginByUserName(String username,String password);
     @Select("select * from users where userid=#{userid} and password=#{password}")
-    User UserLoginByUserId(int userid,String password);
+    User UserLoginByUserId(long userid,String password);
+
 }

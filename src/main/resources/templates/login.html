@@ -8,6 +8,10 @@
         #loginbox{
             margin:0 auto;
         }
+        .result{
+            margin-top: 100px;
+            color: #FF5722;
+        }
     </style>
 </head>
 <body>
@@ -29,21 +33,16 @@
             <div class="layui-form-mid layui-word-aux"><a href="" style="color: gray">忘记密码</a> </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">保持登陆</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="switch" lay-skin="switch">
-            </div>
-        </div>
-        <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit   formaction="/login" formmethod="post">登陆</button>
                 <button  type="button" class="layui-btn layui-btn-primary"  ><a href="/register">注册</a></button>
             </div>
         </div>
-        <div class="layui-form-item">
-            <div th:if="${result != null}" th:text="'result:'+${result}" } ></div>
-        </div>
+
     </form>
+    <div class="layui-form-item result layui-col-md-offset3 layui-col-md6" align="center">
+        <div th:if="${result != null}" th:text="${result}" } ></div>
+    </div>
 </div>
 
 

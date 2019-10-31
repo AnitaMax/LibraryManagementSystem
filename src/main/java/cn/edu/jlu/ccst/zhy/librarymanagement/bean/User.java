@@ -2,13 +2,13 @@ package cn.edu.jlu.ccst.zhy.librarymanagement.bean;
 
 import java.util.Date;
 public class User {
-    int userid;
+    long userid;
     String username;
     String password;
     String type;
     Date register_time;
 
-    public int getUserid() {
+    public long getUserid() {
         return userid;
     }
 

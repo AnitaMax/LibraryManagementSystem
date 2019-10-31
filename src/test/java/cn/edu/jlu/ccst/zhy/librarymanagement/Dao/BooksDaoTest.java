@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,4 +33,21 @@ class BooksDaoTest {
     void searchBooks() {
         System.out.println(booksDao.searchBooks("胡亮"));
     }
+
+    @Test
+    void searchBooksByBookId() {
+        System.out.println(booksDao.searchBooksByBookId(1000001));
+    }
+
+    @Test
+    void addBorrowLog() {
+        booksDao.addBorrowLog(1,1,new Date());
+    }
+
+    @Test
+    void addBackLog() {
+        booksDao.addBackLog(1,1,new Date());
+    }
+
+
 }

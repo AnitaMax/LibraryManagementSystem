@@ -2,11 +2,10 @@
 <head>
 
     <link rel="stylesheet" href="/static/layui/css/layui.css">
-
 </head>
 
 <body>
-    <ul class="layui-nav" lay-filter="" th:fragment="navbar(state)">
+    <ul class="layui-nav" lay-filter="" th:fragment="navbar(state)" >
         <script src="/jquery-3.4.1.min.js"></script>
         <script>
             function logout() {
@@ -23,18 +22,23 @@
                 })
             }
         </script>
-        <li class="layui-nav-item "><a href="/">主页</a></li>
+        <<span class="layui-nav-item layui-col-md10"  >
+            <a href="/">在线图书馆</a>
+        </span>
+        <li class="layui-nav-item " ><a href="/">主页</a></li>
         <!--/*@thymesVar id="login" type="java.lang.Boolean"*/-->
-        <li class="layui-nav-item" th:if="${state=='login'}">
+        <li class="layui-nav-item" th:if="${state=='login' }" >
             <a href="javascript:;">个人</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a href="/personal/personalcenter">个人中心</a></dd>
                 <dd><a href="javascript:logout()">注销登陆</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item" th:if="${state!='login'}">
+        <li class="layui-nav-item" th:if="${state!='login'}" >
             <a href="/login">登陆</a>
         </li>
+
+
     </ul>
     <script src="/static/layui/layui.all.js"></script>
 </body>

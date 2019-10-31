@@ -1,6 +1,7 @@
 package cn.edu.jlu.ccst.zhy.librarymanagement.bean;
 
 public class Book {
+    long bookid;
     String isbn;
     String name;
     String author;
@@ -9,6 +10,14 @@ public class Book {
     String describe;
     String location;
     int num;
+
+    public long getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(long bookid) {
+        this.bookid = bookid;
+    }
 
     public String getIsbn() {
         return isbn;
