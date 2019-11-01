@@ -24,16 +24,22 @@ public interface BooksDao {
     List<Book> searchBooksByIsbn(String isbn);
     @Select("select * from books where bookid=#{isbn}")
     Book searchBooksByBookId(long isbn);
-    //更新日志
-    @Select("select * from borrowlog where userid=#{userid}")
-    List<BorrowLog> getBorrowLogByUserId(long userid);
-    @Select("select * from borrowlog where userid=#{userid} and bookid=#{bookid}")
-    List<BorrowLog> getBorrowLogByUserIdAndBookId(long userid,long bookid);
+
+    @Update("update books set num=num+#{num} where bookid=#{bookid}")
+    void updateBookNumById(long bookid,int num);
+    //借书
     @Insert("insert into borrowlog values(#{userid},#{bookid},'borrow',1,#{date},'borrow')")
     void addBorrowLog(long userid, long bookid, Date date);
+
+
+    //归还
     @Insert("insert into borrowlog values(#{userid},#{bookid},'back',1,#{date},'done')")
     void addBackLog(long userid, long bookid, Date date);
-    @Update("update borrowlog set state='back' where userid=#{userid} and bookid=#{bookid}")
-    void updateBackLog(long userid, long bookid, Date date);
+    @Update("update borrowlog set state='back' where userid=#{userid} and bookid=#{bookid} and state='borrow'")
+    void updateBackLog(long userid, long bookid);
+
+    //查询状态
+    @Select("select state from borrowlog where userid=#{userid} and bookid=#{bookid}")
+    List<String> getStateByUseridAndBookid(long userid,long bookid);
 
 }

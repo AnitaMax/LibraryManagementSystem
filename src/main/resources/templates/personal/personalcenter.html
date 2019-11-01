@@ -32,17 +32,113 @@
     </style>
 </head>
 <body>
-    <div th:replace="tem/navbar::navbar('login')"></div>
+    <div >
+        <div th:replace="tem/navbar::navbar('login')"></div>
+        <div id="userbox" class="layui-card">
+            <div class="layui-card-header">
+                <h1 align="center">用户信息</h1>
+            </div>
+            <div class="layui-card-body" style="background: #c0c4cc">
+                <span align="center" th:text="'用户名:'+${user.username}"></span>
+                <span align="center" th:text="'id:    '+${user.userid}"></span>
+                <button class="layui-btn layui-col-md-offset6"  onclick="logout()" >注销</button>
+            </div>
+        </div>
+        <div th:if="${#lists.size(books) != 0} "  class=" layui-col-md-offset2 layui-col-md8 " style="float: left;" >
+            <div class="layui-col-md-offset1" th:each="book:${books}" >
+                <div class="layui-card layui-col-md11" style="background-color: #E9E7E7;margin-top: 50px">
+                    <div class="layui-card-header" th:text="${book.name}">书名</div>
+                    <div class="layui-card-body">
+                        <div th:text="'作者：'+${book.author==null?'暂无':book.author}+' | '
+                             +'出版社：'+${book.publisher==null?'暂无':book.publisher} +' | '
+                             +'ISBN: '+${book.isbn==null?'暂无':book.isbn}">
+                        </div>
+                        <div th:text="'描述：'+${book.describe==null?'暂无':book.describe}">
+                        </div>
+                        <div th:text="'状态：'+${book.getLeftTime()}">
+                        </div>
+                        <div class="layui-col-md-offset8">
+                            <button onclick="" type="button" class="layui-btn ">详细信息</button>
+                            <button th:onclick="back([[${book.bookid}]])" type="button" class="layui-btn" >归还</button>
+                        </div>
 
-    <div id="userbox">
-        <h1 align="center">用户信息</h1>
-        <h2 align="center" th:text="'用户名:'+${user.username}"></h2>
-        <h2 align="center" th:text="'id:    '+${user.userid}"></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md-offset7 layui-col-md5"  style="margin-top: 50px">
+                <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}"  type="button" class="layui-btn"  th:onclick="jump([[${pageindex}]])" >
+                    <a th:text="${pageindex}" >  </a>
+                </button>
+            </div>
+
+        </div>
+
+
+        <div th:if="${#lists.size(books) == 0}">
+            <div class="layui-card  layui-col-md-offset2 layui-col-md8" style="background-color: #E9E7E7;float: left;margin:50px 100px">
+                <div class="layui-card-header">
+                    您借阅的书目已经全部还清；
+                </div>
+                <div class="layui-card-body">
+                   感谢您的支持！
+                </div>
+            </div>
+        </div>
+
 
     </div>
-    <button class="layui-btn"  onclick="logout()">注销</button>
+
+    </div>
+
 
     <script src="/layui/layui.all.js"></script>
+    <script src="/jquery-3.4.1.min.js"></script>
+    <script>
+        function changeUrl(base, find, value) {
+            var offset = base.indexOf(find);
+            var index;
+            var rr = '';
+            if(offset < 0){
+                if(base.indexOf('?') < 0) {
+                    base += '?';
+                }else{
+                    base += '&';
+                }
+                base += find + '=' + value;
+            }else{
+                left = base.substr(0, offset);
+                right = base.substr(offset);
+                index = right.indexOf('&');
+                if(index >= 0){
+                    rr = right.substr(index);
+                }
+                base = left + find + "=" + value + rr;
+            }
+            return base;
+        }
+        function jump(page) {
+            var url=window.location.href;
+            console.log(url);
+            window.location.href=changeUrl(url,'page',page)
+        }
+        function back(bookid){
+            $.ajax({
+                url: "/back?bookid=" + bookid,
+                success:function(data){
+                    layer.msg(data);
+                    setTimeout("window.location.reload()",3500);
+                },
+                error:function () {
+                    layer.msg("出现了错误，请稍后重试")
+                    window.location.reload()
+                }
+
+
+            })
+        }
+
+    </script>
+
 </body>
 
 </html>

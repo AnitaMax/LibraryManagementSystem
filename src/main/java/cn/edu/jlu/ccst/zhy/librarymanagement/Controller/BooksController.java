@@ -64,4 +64,23 @@ public class BooksController {
         String result=booksService.borrow(user.getUserid(),bookid);
         return result;
     }
+    @RequestMapping("/back")
+    @ResponseBody
+    public String back(HttpServletRequest request,HttpSession session){
+        //获取书的id
+        String bookidString = request.getParameter("bookid");
+        long bookid;
+        try{
+            bookid=Integer.parseInt(bookidString);
+        }catch (Exception e){
+            return "系统错误，请刷新重试";
+        }
+        //获取读者id
+        User user = (User) session.getAttribute("user");
+        if(user==null)
+            return "您尚未登陆，请先登录！";
+        //转发给service
+        String result=booksService.back(user.getUserid(),bookid);
+        return result;
+    }
 }

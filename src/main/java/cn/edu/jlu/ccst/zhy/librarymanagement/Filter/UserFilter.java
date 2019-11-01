@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/personal/*", filterName = "UserFilter")
+@WebFilter(urlPatterns = {"/personal/*","/borrow","/back"}, filterName = "UserFilter")
 public class UserFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
