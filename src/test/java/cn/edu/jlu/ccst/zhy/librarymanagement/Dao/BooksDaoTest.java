@@ -50,4 +50,8 @@ class BooksDaoTest {
     }
 
 
+    @Test
+    void searchBooksByPage() {
+        System.out.println(booksDao.searchBooksByPage("计算机",0,5));
+    }
 }

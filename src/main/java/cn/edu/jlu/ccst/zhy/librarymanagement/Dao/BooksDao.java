@@ -18,6 +18,8 @@ public interface BooksDao {
     List<Book> searchBooksByAuthor(String author);
     @Select("select * from books where author like CONCAT('%',#{content},'%') or name like CONCAT('%',#{content},'%')  or isbn=#{content}")
     List<Book> searchBooks(String content);
+    @Select("select * from books where author like CONCAT('%',#{content},'%') or name like CONCAT('%',#{content},'%')  or isbn=#{content} limit #{start},#{pagesize}")
+    List<Book> searchBooksByPage(String content ,int start,int pagesize);
     @Select("select * from books where isbn=#{isbn}")
     List<Book> searchBooksByIsbn(String isbn);
     @Select("select * from books where bookid=#{isbn}")

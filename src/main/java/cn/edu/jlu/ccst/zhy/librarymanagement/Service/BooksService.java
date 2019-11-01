@@ -16,6 +16,12 @@ public class BooksService {
     public List<Book> searchBooks(String content){
         return booksDao.searchBooks(content);
     }
+    public int getPageNum(String content){
+        return booksDao.searchBooks(content).size()/5+1;
+    }
+    public  List<Book> searchBooks(String content,int page){
+        return booksDao.searchBooksByPage(content,(page-1)*5,5);
+    }
 
     public List<Book> searchBooksByAuthor(String author){
         return booksDao.searchBooksByAuthor(author);

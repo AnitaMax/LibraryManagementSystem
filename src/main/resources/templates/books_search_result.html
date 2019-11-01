@@ -37,7 +37,7 @@
         </ul>
     </div>
 
-    <div th:if="${#lists.size(books) != 0} "  class="layui-col-md8" style="float: left;">
+    <div th:if="${#lists.size(books) != 0} "  class="layui-col-md8 " style="float: left;" >
         <div class="layui-col-md-offset1" th:each="book:${books}" >
             <div class="layui-card layui-col-md11" style="background-color: #E9E7E7;margin-top: 50px">
                 <div class="layui-card-header" th:text="${book.name}">书名</div>
@@ -65,6 +65,12 @@
                 </div>
             </div>
         </div>
+        <div class="layui-col-md-offset7 layui-col-md5"  style="margin-top: 50px">
+            <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}"  type="button" class="layui-btn"  th:onclick="jump([[${pageindex}]])" >
+                <a th:text="${pageindex}" >  </a>
+            </button>
+        </div>
+
     </div>
 
     </div>
@@ -82,8 +88,36 @@
 
 </div>
 
-
+<script src="/layui/layui.all.js"></script>
+<script src="/jquery-3.4.1.min.js"></script>
 <script>
+    function changeUrl(base, find, value) {
+        var offset = base.indexOf(find);
+        var index;
+        var rr = '';
+        if(offset < 0){
+            if(base.indexOf('?') < 0) {
+                base += '?';
+            }else{
+                base += '&';
+            }
+            base += find + '=' + value;
+        }else{
+            left = base.substr(0, offset);
+            right = base.substr(offset);
+            index = right.indexOf('&');
+            if(index >= 0){
+                rr = right.substr(index);
+            }
+            base = left + find + "=" + value + rr;
+        }
+        return base;
+    }
+    function jump(page) {
+        var url=window.location.href;
+        console.log(url);
+        window.location.href=changeUrl(url,'page',page)
+    }
     function borrow(bookid){
         $.ajax({
             url: "/borrow?bookid=" + bookid,
@@ -98,9 +132,9 @@
 
         })
     }
+
 </script>
-<script src="/layui/layui.all.js"></script>
-<script src="/jquery-3.4.1.min.js"></script>
+
 
 </body>
 </html>

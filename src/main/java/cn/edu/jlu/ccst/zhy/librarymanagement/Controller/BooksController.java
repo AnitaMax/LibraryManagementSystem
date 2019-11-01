@@ -22,9 +22,25 @@ public class BooksController {
     public String index(Model model, HttpSession session, HttpServletRequest request){
         UserUtil.setStateAndUser(model,session);
         //获得参数
+        int page;
+        try{
+            page=Integer.parseInt(request.getParameter("page"));
+        }catch (Exception e){page=1;}
         String content=request.getParameter("content");
         //获取搜索结果
-        List<Book> books = booksService.searchBooks(content);
+        int pagenum=booksService.getPageNum(content);
+        model.addAttribute("pageNum",pagenum);
+        List<Book> books ;
+        if(pagenum==1){
+            model.addAttribute("page",1);
+            books=booksService.searchBooks(content);
+        }else{
+            if(page>pagenum&&page<1) {
+                page=1;
+            }
+            books=booksService.searchBooks(content,page);
+            model.addAttribute("page",page);
+        }
         model.addAttribute("books",books);
         return "books_search_result";
     }
