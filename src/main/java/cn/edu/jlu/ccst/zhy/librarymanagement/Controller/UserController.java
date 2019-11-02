@@ -53,7 +53,7 @@ public class UserController {
     @ResponseBody
     public String logout(HttpSession session){
         session.removeAttribute("user");
-        return "success";
+        return "退出成功";
     }
 
 }
