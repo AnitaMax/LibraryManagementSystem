@@ -24,7 +24,10 @@ public interface BooksDao {
     List<Book> searchBooksByIsbn(String isbn);
     @Select("select * from books where bookid=#{isbn}")
     Book searchBooksByBookId(long isbn);
-
+    //增加书籍
+    @Insert("insert into books(name,isbn,author,publisher,`describe`,location,num) values(#{name},#{isbn},#{author},#{publisher},#{describe},#{location},#{num})")
+    int addBook(String name,String isbn,String describe,String author,String publisher,String location,int num);
+    //更新书籍数目
     @Update("update books set num=num+#{num} where bookid=#{bookid}")
     void updateBookNumById(long bookid,int num);
     //借书

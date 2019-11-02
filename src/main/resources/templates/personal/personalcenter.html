@@ -49,7 +49,7 @@
                 </div>
                 <div th:if="${user.type=='manager'}">
                     <div th:text="'尊敬的管理员,您好!'"></div>
-                    <button class="layui-btn layui-col-md-offset2"  onclick="logout()" >图书管理</button>
+                    <button class="layui-btn layui-col-md-offset2"  onclick="window.location.href='/personal/bookmanage'" >图书管理</button>
                     <button class="layui-btn "  onclick="logout()" >用户管理</button>
                     <button class="layui-btn "  onclick="logout()" >查看日志</button>
                 </div>
@@ -101,9 +101,6 @@
 
     </div>
 
-
-    <script src="/layui/layui.all.js"></script>
-    <script src="/jquery-3.4.1.min.js"></script>
     <script>
         function changeUrl(base, find, value) {
             var offset = base.indexOf(find);

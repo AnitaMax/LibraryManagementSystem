@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线图书馆</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+    <div calss="main">
+        <div th:replace="tem/navbar::navbar('login')"></div>
+        <div th:if="${process_result!=null}" class="layui-col-md-offset2 layui-col-md8">
+            <div class="layui-card-header">
+                <h1 align="center">处理结果</h1>
+            </div>
+            <div class="layui-card-body" style="background: #c0c4cc" th:text="${process_result}">
+                aaa
+            </div>
+        </div>
+
+        <div class="layui-collapse layui-col-md-offset2 layui-col-md8" lay-accordion>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">入库新的图书</h2>
+                <div class="layui-colla-content layui-show">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">ISBN</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="isbn"  placeholder="请输入书籍的ISBN" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">*书籍名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" required lay-verify="required" placeholder="请输入书籍名" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">必填项</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">作者</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="author"  placeholder="请输入书籍的作者" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出版社</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="publisher"  placeholder="请输入书籍的出版社" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">馆藏地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="location"  placeholder="请输入书籍的馆藏地址" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="describe" placeholder="请输入书籍描述" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">*书籍数量</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="num" required lay-verify="required" placeholder="请输入书籍的数量" autocomplete="off" class="layui-input" onblur='InputCheck(this);' id="numbox">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">必填项，为大于等于0的整数</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo" formaction="/personal/bookmanage/addbook" formmethod="post">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">删除旧图书</h2>
+                <div class="layui-colla-content layui-show">内容区域</div>
+            </div>
+        </div>
+
+    </div>
+
+<script src="/layui/layui.all.js"></script>
+<script src="/jquery-3.4.1.min.js"></script>
+<script>
+    //输入框检查
+    function InputCheck(ob)
+    {
+        var id=$(ob).attr("id");
+        var thisValue=document.getElementById(id).value;
+        var regPos = /(^[0-9]\d*$)/; //正整数
+        if(regPos.test(thisValue) )
+        {
+            //
+        }
+        else
+        {
+            layer.msg("请输入正确数字！");
+            $(ob).val("");
+        }
+    }
+</script>
+</body>
+</html>
