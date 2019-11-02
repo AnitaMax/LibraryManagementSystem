@@ -16,13 +16,13 @@ import javax.servlet.http.HttpSession;
 public class BookManageController {
     @Autowired
     BookManageService bookManageService;
-    @RequestMapping("/personal/bookmanage")
+    @RequestMapping("/personal/manager/bookmanage")
     public String bookManage(Model model, HttpSession session, HttpServletRequest request){
         UserUtil.setStateAndUser(model,session);
 
-        return "/personal/bookmanage";
+        return "/personal/manager/bookmanage";
     }
-    @RequestMapping("/personal/bookmanage/addbook")
+    @RequestMapping("/personal/manager/bookmanage/addbook")
     public String addBook(Book book, Model model, HttpSession session, HttpServletRequest request){
         boolean isSuccess=bookManageService.addBook(book);
         if(isSuccess){

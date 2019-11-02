@@ -23,11 +23,11 @@ public class C_UserFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request=(HttpServletRequest)servletRequest;
-        //放行静态资源
-        StringBuffer url=request.getRequestURL();
-        if(url.indexOf("layui")>=0||url.indexOf("jquery")>=0){
-            filterChain.doFilter(servletRequest,servletResponse);
-        }
+//        //放行静态资源
+//        StringBuffer url=request.getRequestURL();
+//        if(url.indexOf("layui")>=0||url.indexOf("jquery")>=0){
+//            filterChain.doFilter(servletRequest,servletResponse);
+//        }
         //判断是否登陆
         User loginedUser= (User) request.getSession().getAttribute("user");
         System.out.println("拦截:"+request.getRequestURL());
