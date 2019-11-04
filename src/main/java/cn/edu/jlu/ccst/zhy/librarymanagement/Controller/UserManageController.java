@@ -23,7 +23,7 @@ public class UserManageController {
         UserUtil.setStateAndUser(model,session);
 
 
-        return "/personal/manager/usermanage";
+        return "personal/manager/usermanage";
     }
     @RequestMapping("/personal/manager/usermanage/adduser")
     public String addManage(Model model, HttpServletRequest request, HttpSession session, User user){

@@ -20,7 +20,7 @@ public class BookManageController {
     public String bookManage(Model model, HttpSession session, HttpServletRequest request){
         UserUtil.setStateAndUser(model,session);
 
-        return "/personal/manager/bookmanage";
+        return "personal/manager/bookmanage";
     }
     @RequestMapping("/personal/manager/bookmanage/addbook")
     public String addBook(Book book, Model model, HttpSession session, HttpServletRequest request){

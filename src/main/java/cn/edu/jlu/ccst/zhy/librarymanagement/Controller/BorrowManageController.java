@@ -45,6 +45,6 @@ public class BorrowManageController {
         booklogs=borrowManageService.getBorrowLog(page2);
         model.addAttribute("booklogs",booklogs);
 
-        return "/personal/manager/borrowmanage";
+        return "personal/manager/borrowmanage";
     }
 }
