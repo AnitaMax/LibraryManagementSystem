@@ -20,4 +20,16 @@ public class UserManageService {
         }
         return false;
     }
+
+    public User searchUserBuUserid(long userid){
+        return userManageDao.searchUserByUserid(userid);
+    }
+
+    public boolean modifyUser(User user){
+        int num=userManageDao.modifyUser(user.getUserid(),user.getUsername(),user.getPassword(),user.getType());
+        if(num==1){
+            return true;
+        }
+        return false;
+    }
 }

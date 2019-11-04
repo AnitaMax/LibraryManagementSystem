@@ -15,7 +15,7 @@ public interface BorrowManageDao {
             @Result(property = "borrowtime",  column = "datetime"),
     })
     List<BookBorrowed> getOverTimeLog();
-    @Select("SELECT * FROM borrowlog,users,books WHERE state='borrow' AND DATE_SUB(CURDATE(),INTERVAL 15 DAY)>`datetime` AND users.userid=borrowlog.userid AND books.bookid=borrowlog.bookid limit #{start},#{pagesize}")
+    @Select("SELECT * FROM borrowlog,users,books WHERE state='borrow' AND DATE_SUB(CURDATE(),INTERVAL 15 DAY)>`datetime` AND users.userid=borrowlog.userid AND books.bookid=borrowlog.bookid order by borrowlog.datetime desc limit #{start},#{pagesize} ")
     @Results({
             @Result(property = "borrowtime",  column = "datetime"),
     })
@@ -27,7 +27,7 @@ public interface BorrowManageDao {
     })
     List<BookBorrowed> getBorrowLog();
 
-    @Select("SELECT * FROM borrowlog,users,books WHERE  users.userid=borrowlog.userid AND books.bookid=borrowlog.bookid limit #{start},#{pagesize}")
+    @Select("SELECT * FROM borrowlog,users,books WHERE  users.userid=borrowlog.userid AND books.bookid=borrowlog.bookid order by borrowlog.datetime desc limit #{start},#{pagesize} ")
     @Results({
             @Result(property = "borrowtime",  column = "datetime"),
     })

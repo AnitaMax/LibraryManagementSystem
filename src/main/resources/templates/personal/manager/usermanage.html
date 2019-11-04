@@ -28,8 +28,8 @@
                         <label class="layui-form-label">*用户id</label>
                         <div class="layui-input-inline">
                             <input type="number" name="userid"  required lay-verify="required" placeholder="请输入用户id" autocomplete="off" class="layui-input">
-                            <div class="layui-form-mid layui-word-aux">必填项</div>
                         </div>
+                        <div class="layui-form-mid layui-word-aux">必填项</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">*用户名</label>
@@ -39,15 +39,16 @@
                         <div class="layui-form-mid layui-word-aux">必填项</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">密码*</label>
+                        <label class="layui-form-label">*密码</label>
                         <div class="layui-input-inline">
-                            <input type="password" name="password"  placeholder="请输入用户密码" autocomplete="off" class="layui-input">
-                            <div class="layui-form-mid layui-word-aux">必填项</div>
+                            <input type="password" name="password" required lay-verify="required" placeholder="请输入用户密码" autocomplete="off" class="layui-input">
+
                         </div>
+                        <div class="layui-form-mid layui-word-aux">必填项</div>
                     </div>
                     <div class="layui-form-item" >
                         <label class="layui-form-label">*用户类型</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" required lay-verify="required">
                             <select name="type" lay-verify="" >
                                 <option value="">用户类型</option>
                                 <option value="user">普通用户</option>
@@ -67,13 +68,58 @@
             </div>
             <div class="layui-colla-item layui-col-md12">
                 <h2 class="layui-colla-title">更改用户信息</h2>
-                <div class="layui-colla-content ">
+                <div class="layui-colla-content layui-show">
                     <form  class="modify-user">
                         <div class="layui-input-inline" style="width: 80%">
-                            <input type="text" name="userid" required lay-verify="required" placeholder="请输入用户的id" autocomplete="off" class="layui-input" id="modify_userid">
+                            <input type="number" name="userid" required lay-verify="required" placeholder="请输入用户的id" autocomplete="off" class="layui-input" id="modify_userid" >
                         </div>
-                        <button type="button" class="layui-btn" formmethod="get" onclick="searchUserid()" >搜索</button>
+                        <button type="submit" class="layui-btn" formmethod="get" formaction="/personal/manager/usermanage/search" >搜索</button>
                     </form>
+                    <div th:if="${modify_user != null}">
+                        <form class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">*用户id</label>
+                                <div class="layui-input-inline">
+                                    <input th:value="${modify_user.userid}" type="number" name="userid"  required lay-verify="required" placeholder="请输入用户id" autocomplete="off" class="layui-input">
+
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">必填项</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">*用户名</label>
+                                <div class="layui-input-inline">
+                                    <input th:value="${modify_user.username}" type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">必填项</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">*密码</label>
+                                <div class="layui-input-inline">
+                                    <input th:value="${modify_user.password}"  required lay-verify="required" type="text" name="password"  placeholder="请输入用户密码" autocomplete="off" class="layui-input">
+
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">必填项</div>
+                            </div>
+                            <div class="layui-form-item" >
+                                <label class="layui-form-label">*用户类型</label>
+                                <div class="layui-input-inline">
+                                    <select  name="type" required lay-verify="required">
+                                        <option value="">用户类型</option>
+                                        <option value="user" th:selected="${modify_user.type eq 'user'}">普通用户</option>
+                                        <option value="manager" th:selected="${modify_user.type eq 'manager'}">管理者</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo" formaction="/personal/manager/usermanage/modifyuser" formmethod="post">保存用户</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,21 +127,6 @@
     </div>
 
     <script src="/layui/layui.all.js"></script>
-    <script>
-        function searchUserid() {
-            $.ajax({
-                url:"/personal/manager/usermanage/search",
-                type:"get",
-                data:{"userid":$("#modify_userid").val()},
-                success:function (data) {
-                    layer.msg("success")
-                },
-                error:function () {
-                    layer.msg("网络错误，请稍后重试")
-                }
-            })
 
-        }
-    </script>
 </body>
 </html>

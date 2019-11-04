@@ -26,7 +26,7 @@ public class UserManageController {
         return "/personal/manager/usermanage";
     }
     @RequestMapping("/personal/manager/usermanage/adduser")
-    public String userManage(Model model, HttpServletRequest request, HttpSession session, User user){
+    public String addManage(Model model, HttpServletRequest request, HttpSession session, User user){
         UserUtil.setStateAndUser(model,session);
         if(userManageService.addUser(user)){
             model.addAttribute("process_result","添加用户成功");
@@ -38,9 +38,26 @@ public class UserManageController {
         return userManage(model,request,session);
     }
     @RequestMapping("/personal/manager/usermanage/search")
-    @ResponseBody
-    public String searchUserByid(Model model,String userid){
-        return "success";
+    public String searchUserByid(long userid ,Model model, HttpServletRequest request, HttpSession session){
+        User user=userManageService.searchUserBuUserid(userid);
+        model.addAttribute("modify_user",user);
+        if(user==null){
+            model.addAttribute("process_result","没有此用户！");
+        }
+        return userManage(model,request,session);
+    }
+
+    @RequestMapping("/personal/manager/usermanage/modifyuser")
+    public String modifyUser(Model model, HttpServletRequest request, HttpSession session, User user){
+        UserUtil.setStateAndUser(model,session);
+        if(userManageService.modifyUser(user)){
+            model.addAttribute("process_result","修改用户成功");
+        }else{
+            model.addAttribute("process_result","修改用户失败，请重试");
+        }
+
+
+        return userManage(model,request,session);
     }
 
 }
