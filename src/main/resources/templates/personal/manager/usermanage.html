@@ -23,17 +23,79 @@
         <div class="layui-colla-item layui-col-md12">
             <h2 class="layui-colla-title">增加用户</h2>
             <div class="layui-colla-content layui-show">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">*用户id</label>
+                        <div class="layui-input-inline">
+                            <input type="number" name="userid"  required lay-verify="required" placeholder="请输入用户id" autocomplete="off" class="layui-input">
+                            <div class="layui-form-mid layui-word-aux">必填项</div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">*用户名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">必填项</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码*</label>
+                        <div class="layui-input-inline">
+                            <input type="password" name="password"  placeholder="请输入用户密码" autocomplete="off" class="layui-input">
+                            <div class="layui-form-mid layui-word-aux">必填项</div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" >
+                        <label class="layui-form-label">*用户类型</label>
+                        <div class="layui-input-inline">
+                            <select name="type" lay-verify="" >
+                                <option value="">用户类型</option>
+                                <option value="user">普通用户</option>
+                                <option value="manager">管理者</option>
+                            </select>
+                        </div>
 
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo" formaction="/personal/manager/usermanage/adduser" formmethod="post">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="layui-colla-item layui-col-md12">
-                <h2 class="layui-colla-title">借阅记录</h2>
-                <div class="layui-colla-content ">等待系统更新</div>
+                <h2 class="layui-colla-title">更改用户信息</h2>
+                <div class="layui-colla-content ">
+                    <form  class="modify-user">
+                        <div class="layui-input-inline" style="width: 80%">
+                            <input type="text" name="userid" required lay-verify="required" placeholder="请输入用户的id" autocomplete="off" class="layui-input" id="modify_userid">
+                        </div>
+                        <button type="button" class="layui-btn" formmethod="get" onclick="searchUserid()" >搜索</button>
+                    </form>
+                </div>
             </div>
         </div>
 
     </div>
 
-<script src="/layui/layui.all.js"></script>
+    <script src="/layui/layui.all.js"></script>
+    <script>
+        function searchUserid() {
+            $.ajax({
+                url:"/personal/manager/usermanage/search",
+                type:"get",
+                data:{"userid":$("#modify_userid").val()},
+                success:function (data) {
+                    layer.msg("success")
+                },
+                error:function () {
+                    layer.msg("网络错误，请稍后重试")
+                }
+            })
 
+        }
+    </script>
 </body>
 </html>
