@@ -55,8 +55,5 @@ class BooksDaoTest {
         System.out.println(booksDao.searchBooksByPage("计算机",0,5));
     }
 
-    @Test
-    void addBook() {
-        booksDao.addBook("1", "1", "1", "1", "1", "1",1);
-    }
+
 }

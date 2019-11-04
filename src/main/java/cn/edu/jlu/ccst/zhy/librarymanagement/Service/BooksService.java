@@ -2,6 +2,7 @@ package cn.edu.jlu.ccst.zhy.librarymanagement.Service;
 
 import cn.edu.jlu.ccst.zhy.librarymanagement.Dao.BooksDao;
 import cn.edu.jlu.ccst.zhy.librarymanagement.bean.Book;
+import cn.edu.jlu.ccst.zhy.librarymanagement.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,10 @@ public class BooksService {
     }
     public int getPageNum(String content){
         float size=booksDao.searchBooks(content).size();
-        float fpagenum=size/5;
-        return (int)Math.ceil(fpagenum);
+        return PageUtil.getPageNum(size);
     }
     public  List<Book> searchBooks(String content,int page){
-        return booksDao.searchBooksByPage(content,(page-1)*5,5);
+        return booksDao.searchBooksByPage(content,(page-1)*PageUtil.num_in_page,PageUtil.num_in_page);
     }
 
     public List<Book> searchBooksByAuthor(String author){

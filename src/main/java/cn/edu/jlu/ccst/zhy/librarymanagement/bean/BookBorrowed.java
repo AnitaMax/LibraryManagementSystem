@@ -5,6 +5,8 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 import java.util.Date;
 
 public class BookBorrowed {
+    long userid;
+    String username;
     long bookid;
     String isbn;
     String name;
@@ -14,6 +16,22 @@ public class BookBorrowed {
     String describe;
     Date borrowtime;
     String state;
+
+    public long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(long userid) {
+        this.userid = userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public long getBookid() {
         return bookid;
@@ -90,7 +108,9 @@ public class BookBorrowed {
     @Override
     public String toString() {
         return "BookBorrowed{" +
-                "bookid=" + bookid +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", bookid=" + bookid +
                 ", isbn='" + isbn + '\'' +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
@@ -101,6 +121,7 @@ public class BookBorrowed {
                 ", state='" + state + '\'' +
                 '}';
     }
+
     public String getLeftTime(){
         Date now=new Date();
         int available=15;

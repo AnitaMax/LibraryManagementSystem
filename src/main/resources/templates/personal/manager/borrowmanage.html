@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>借阅管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/jquery-3.4.1.min.js"></script>
+    <script src="/jump.js"></script>
+</head>
+<body>
+<div calss="main">
+    <div th:replace="tem/navbar::navbar('login')"></div>
+    <div th:if="${process_result!=null}" class="layui-col-md-offset2 layui-col-md8">
+        <div class="layui-card-header">
+            <h1 align="center">处理结果</h1>
+        </div>
+        <div class="layui-card-body" style="background: #c0c4cc" th:text="${process_result}">
+            aaa
+        </div>
+    </div>
+
+    <div class="layui-collapse layui-col-md-offset2 layui-col-md8" lay-accordion>
+        <div class="layui-colla-item layui-col-md12">
+            <h2 class="layui-colla-title">超期记录</h2>
+            <div class="layui-colla-content layui-show">
+                <div th:if="${#lists.size(books) != 0} " class=" layui-col-md-offset2 layui-col-md8 ">
+                    <div class="" th:each="book:${books}">
+                        <div class="" style="background-color: #E9E7E7;margin-top: 50px">
+                            <div class="layui-card-header" th:text="${book.name}">书名</div>
+                            <div class="layui-card-body">
+                                <div th:text="'作者：'+${book.author==null?'暂无':book.author}+' | '
+                                 +'出版社：'+${book.publisher==null?'暂无':book.publisher} +' | '
+                                 +'ISBN: '+${book.isbn==null?'暂无':book.isbn}">
+                                </div>
+                                <div th:text="'描述：'+${book.describe==null?'暂无':book.describe}">
+                                </div>
+                                <div th:text="'借阅人：'+${book.username}+' | 借阅人id：'+${book.userid}">
+                                </div>
+                                <div th:text="'状态：'+${book.getLeftTime()}">
+                                </div>
+                                <div class="">
+                                    <button onclick="" type="button" class="layui-btn ">详细信息</button>
+                                    <button th:onclick="" type="button" class="layui-btn">催促归还</button>
+                                    <button th:onclick="" type="button" class="layui-btn">设置罚款</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md-offset7 layui-col-md5" style="margin-top: 50px">
+                        <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}" type="button"
+                                class="layui-btn" th:onclick="jump('page',[[${pageindex}]])">
+                            <a th:text="${pageindex}"> </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-colla-item layui-col-md12">
+            <h2 class="layui-colla-title">借阅记录</h2>
+            <div class="layui-colla-content ">
+                <div th:if="${#lists.size(booklogs) != 0} " class=" layui-col-md-offset2 layui-col-md8 ">
+                    <div class="" th:each="book:${booklogs}">
+                        <div class="" style="background-color: #E9E7E7;margin-top: 50px">
+                            <div class="layui-card-header" >
+                                <span th:text="${book.name}"  >
+                                </span>
+                                <span   th:if="${book.state} eq 'borrow' ">
+                                    <span >--->借阅中</span>
+                                </span>
+                                <span th:if="${book.state} eq 'back'" >
+                                    <span >--->借阅已归还 </span>
+                                </span>
+                                <span th:if="${book.state }eq 'done' " >
+                                    <span > --->归还</span>
+                                </span>
+                            </div>
+                            <div class="layui-card-body">
+                                <div th:text="'作者：'+${book.author==null?'暂无':book.author}+' | '
+                                             +'出版社：'+${book.publisher==null?'暂无':book.publisher} +' | '
+                                             +'ISBN: '+${book.isbn==null?'暂无':book.isbn}"></div>
+                                <div th:text="'描述：'+${book.describe==null?'暂无':book.describe}">
+                                </div>
+                                <div th:text="'借阅人：'+${book.username}+' | 借阅人id：'+${book.userid}">
+                                </div>
+                                <div  th:text="'时间：'+${book.borrowtime}" >
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md-offset7 layui-col-md5" style="margin-top: 50px">
+                    <button th:if="${pageNum2>1} " th:each="pageindex:${#numbers.sequence(1,pageNum2)}" type="button"
+                            class="layui-btn" th:onclick="jump('page2',[[${pageindex}]])">
+                        <a th:text="${pageindex}"> </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script src="/layui/layui.all.js"></script>
+<script src="/jquery-3.4.1.min.js"></script>
+<script>
+    //输入框检查
+    function InputCheck(ob) {
+        var id = $(ob).attr("id");
+        var thisValue = document.getElementById(id).value;
+        var regPos = /(^[0-9]\d*$)/; //正整数
+        if (regPos.test(thisValue)) {
+            //
+        } else {
+            layer.msg("请输入正确数字！");
+            $(ob).val("");
+        }
+    }
+</script>
+</body>
+</html>

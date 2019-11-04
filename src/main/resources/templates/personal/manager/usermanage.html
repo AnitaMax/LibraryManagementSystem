@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div calss="main">
+    <div th:replace="tem/navbar::navbar('login')"></div>
+    <div th:if="${process_result!=null}" class="layui-col-md-offset2 layui-col-md8">
+        <div class="layui-card-header">
+            <h1 align="center">处理结果</h1>
+        </div>
+        <div class="layui-card-body" style="background: #c0c4cc" th:text="${process_result}">
+            aaa
+        </div>
+    </div>
+
+    <div class="layui-collapse layui-col-md-offset2 layui-col-md8" lay-accordion>
+        <div class="layui-colla-item layui-col-md12">
+            <h2 class="layui-colla-title">增加用户</h2>
+            <div class="layui-colla-content layui-show">
+
+            </div>
+            <div class="layui-colla-item layui-col-md12">
+                <h2 class="layui-colla-title">借阅记录</h2>
+                <div class="layui-colla-content ">等待系统更新</div>
+            </div>
+        </div>
+
+    </div>
+
+<script src="/layui/layui.all.js"></script>
+
+</body>
+</html>

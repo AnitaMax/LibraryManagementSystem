@@ -17,16 +17,16 @@ public interface PersonalCenterDao {
     List<Book> getBackBooksByUserId(long userid);*/
 
     //查看某个人借过但未还的书
-    @Select("select * from books,(select bookid,datetime borrowtime,state from borrowlog where userid=#{userid} and state='borrow') log where books.bookid=log.bookid")
+    @Select("select * from books,(select bookid,datetime borrowtime,state,userid from borrowlog where userid=#{userid} and state='borrow') log,users where books.bookid=log.bookid and users.userid=log.userid")
     List<BookBorrowed> getBookBorrowedByUserId(long userid);
     //查看某个人借过但未还的书
-    @Select("select * from books,(select bookid,datetime borrowtime,state from borrowlog where userid=#{userid} and state='borrow') log where books.bookid=log.bookid limit #{start},#{pagesize}")
+    @Select("select * from books,(select bookid,datetime borrowtime,state,userid from borrowlog where userid=#{userid} and state='borrow') log ,users where books.bookid=log.bookid and users.userid=log.userid limit #{start},#{pagesize}")
     List<BookBorrowed> getBookBorrowedByUserIdPaged(long userid, int start, int pagesize);
 
     //查看某个人借过已经还的书
-    @Select("select * from books,(select bookid,datetime borrowtime,state from borrowlog where userid=#{userid} and state='back') log where books.bookid=log.bookid")
+    @Select("select * from books,(select bookid,datetime borrowtime,state,userid from borrowlog where userid=#{userid} and state='back') log,users where books.bookid=log.bookid and users.userid=log.userid")
     List<BookBorrowed> getBookBackedByUserId(long userid);
     //查看某个人借过已经还的书
-    @Select("select * from books,(select bookid,datetime borrowtime,state from borrowlog where userid=#{userid} and state='back') log where books.bookid=log.bookid limit #{start},#{pagesize}")
+    @Select("select * from books,(select bookid,datetime borrowtime,state,userid from borrowlog where userid=#{userid} and state='back') log,users where books.bookid=log.bookid and users.userid=log.userid limit #{start},#{pagesize}")
     List<BookBorrowed> getBookBackedByUserIdPaged(long userid, int start, int pagesize);
 }

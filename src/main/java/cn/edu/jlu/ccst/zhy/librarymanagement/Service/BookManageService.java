@@ -1,5 +1,6 @@
 package cn.edu.jlu.ccst.zhy.librarymanagement.Service;
 
+import cn.edu.jlu.ccst.zhy.librarymanagement.Dao.BookManageDao;
 import cn.edu.jlu.ccst.zhy.librarymanagement.Dao.BooksDao;
 import cn.edu.jlu.ccst.zhy.librarymanagement.bean.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import java.util.List;
 public class BookManageService {
     @Autowired
     BooksDao booksDao;
+    @Autowired
+    BookManageDao bookManageDao;
 
     public boolean addBook(Book book){
         List<Book> books = booksDao.searchBooksByIsbn(book.getIsbn());
@@ -18,7 +21,7 @@ public class BookManageService {
             booksDao.updateBookNumById(books.get(0).getBookid(),book.getNum());
             return true;
         }else{
-            int i = booksDao.addBook(book.getName(), book.getIsbn(), book.getDescribe(), book.getAuthor(), book.getPublisher(), book.getLocation(), book.getNum());
+            int i = bookManageDao.addBook(book.getName(), book.getIsbn(), book.getDescribe(), book.getAuthor(), book.getPublisher(), book.getLocation(), book.getNum());
             if(i==1){
                 return true;
             }else{

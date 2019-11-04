@@ -3,8 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>在线图书馆</title>
+    <title>搜索结果</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/jump.js"></script>
 </head>
 <body >
 <div background="#dddddd">
@@ -66,7 +67,7 @@
             </div>
         </div>
         <div class="layui-col-md-offset7 layui-col-md5"  style="margin-top: 50px">
-            <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}"  type="button" class="layui-btn"  th:onclick="jump([[${pageindex}]])" >
+            <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}"  type="button" class="layui-btn"  th:onclick="jump('page',[[${pageindex}]])" >
                 <a th:text="${pageindex}" >  </a>
             </button>
         </div>
@@ -91,33 +92,7 @@
 <script src="/layui/layui.all.js"></script>
 <script src="/jquery-3.4.1.min.js"></script>
 <script>
-    function changeUrl(base, find, value) {
-        var offset = base.indexOf(find);
-        var index;
-        var rr = '';
-        if(offset < 0){
-            if(base.indexOf('?') < 0) {
-                base += '?';
-            }else{
-                base += '&';
-            }
-            base += find + '=' + value;
-        }else{
-            left = base.substr(0, offset);
-            right = base.substr(offset);
-            index = right.indexOf('&');
-            if(index >= 0){
-                rr = right.substr(index);
-            }
-            base = left + find + "=" + value + rr;
-        }
-        return base;
-    }
-    function jump(page) {
-        var url=window.location.href;
-        console.log(url);
-        window.location.href=changeUrl(url,'page',page)
-    }
+
     function borrow(bookid){
         $.ajax({
             url: "/borrow?bookid=" + bookid,

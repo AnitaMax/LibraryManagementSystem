@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/layui/layui.all.js"></script>
     <script src="/jquery-3.4.1.min.js"></script>
+    <script src="/jump.js"></script>
     <script>
         function logout() {
             $.ajax({
@@ -51,7 +52,7 @@
                     <div th:text="'尊敬的管理员,您好!'"></div>
                     <button class="layui-btn layui-col-md-offset2"  onclick="window.location.href='/personal/manager/bookmanage'" >图书管理</button>
                     <button class="layui-btn "  onclick="logout()" >用户管理</button>
-                    <button class="layui-btn "  onclick="logout()" >借阅管理</button>
+                    <button class="layui-btn "  onclick="window.location.href='/personal/manager/borrowmanage'" >借阅管理</button>
                 </div>
             </div>
         </div>
@@ -77,7 +78,7 @@
                 </div>
             </div>
             <div class="layui-col-md-offset7 layui-col-md5"  style="margin-top: 50px">
-                <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}"  type="button" class="layui-btn"  th:onclick="jump([[${pageindex}]])" >
+                <button th:if="${pageNum>1} " th:each="pageindex:${#numbers.sequence(1,pageNum)}"  type="button" class="layui-btn"  th:onclick="jump('page',[[${pageindex}]])" >
                     <a th:text="${pageindex}" >  </a>
                 </button>
             </div>
@@ -102,33 +103,7 @@
     </div>
 
     <script>
-        function changeUrl(base, find, value) {
-            var offset = base.indexOf(find);
-            var index;
-            var rr = '';
-            if(offset < 0){
-                if(base.indexOf('?') < 0) {
-                    base += '?';
-                }else{
-                    base += '&';
-                }
-                base += find + '=' + value;
-            }else{
-                left = base.substr(0, offset);
-                right = base.substr(offset);
-                index = right.indexOf('&');
-                if(index >= 0){
-                    rr = right.substr(index);
-                }
-                base = left + find + "=" + value + rr;
-            }
-            return base;
-        }
-        function jump(page) {
-            var url=window.location.href;
-            console.log(url);
-            window.location.href=changeUrl(url,'page',page)
-        }
+
         function back(bookid){
             $.ajax({
                 url: "/back?bookid=" + bookid,
